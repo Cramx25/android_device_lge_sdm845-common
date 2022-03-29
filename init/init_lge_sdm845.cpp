@@ -144,5 +144,5 @@ void vendor_load_properties() {
     init_target_properties();
     LOG(INFO) << "Loading Coral Fingerprint";
 	property_override_multifp("ro.build.fingerprint", "ro.system.build.fingerprint", "ro.bootimage.build.fingerprint",
-	    "ro.vendor.build.fingerprint", "google/raven/raven:12/SD1A.210817.036/7805805:user/release-keys");
+	    "ro.vendor.build.fingerprint", "google/raven/raven:12/SP2A.220305.013.A3/8229987:user/release-keys");
 }
