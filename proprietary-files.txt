@@ -449,7 +449,7 @@ vendor/lib64/libCB.so|0c7a3534e920a3fb4791f53752df5a34c39877f4
 vendor/firmware/a612_rgmu.bin
 vendor/firmware/a618_gmu.bin
 vendor/firmware/a630_gmu.bin
-vendor/firmware/a630_sqe.fw
+vendor/firmware/a630_sqe.fw|8eaa0ee54719bc8022d77ccbdc17a7dd1843f402
 vendor/firmware/a630_zap.b00
 vendor/firmware/a630_zap.b01
 vendor/firmware/a630_zap.b02
