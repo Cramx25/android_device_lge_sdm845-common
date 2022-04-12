@@ -1,2 +1,0 @@
-#============= surfaceflinger ==============
-binder_call(surfaceflinger, init)

@@ -1,8 +1,0 @@
-#============= shell ==============
-allow shell kernel:system syslog_read;
-allow shell linkerconfig_file:dir getattr;
-allow shell mirror_data_file:dir getattr;
-allow shell postinstall_mnt_dir:dir getattr;
-allow shell vendor_toolbox_exec:file { execute getattr };
-allow shell cache_file:lnk_file { getattr read };
-allow shell init_exec:lnk_file { getattr read };

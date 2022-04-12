@@ -137,7 +137,10 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
         Utils.enableDoze(getActivity(), isChecked);
         Utils.checkDozeService(getActivity());
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> twelve
         if (!isChecked) {
             Utils.enableAlwaysOn(getActivity(), false);
             mAlwaysOnDisplayPreference.setChecked(false);

@@ -1,5 +1,0 @@
-#============= system_server ==============
-binder_call(system_server, init)
-allow system_server proc:file { getattr open read };
-binder_call(system_server, system_server)
-get_prop(system_server, vendor_display_notch_prop)

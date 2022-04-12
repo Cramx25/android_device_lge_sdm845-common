@@ -1,3 +1,0 @@
-#============= rfs_access ==============
-allow rfs_access vendor_mbn_data_file:file { getattr open read };
-allow rfs_access vendor_mbn_data_file:dir search;

@@ -1,5 +1,0 @@
-#============= radio ==============
-allow radio radio:socket { create ioctl read write };
-binder_call(radio, cnd)
-get_prop(radio, exported3_radio_prop)
-allow radio vendor_file:file { execute getattr open read };

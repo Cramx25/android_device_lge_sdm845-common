@@ -1,2 +1,0 @@
-#============= traced_probes ==============
-binder_call(traced_probes, init)

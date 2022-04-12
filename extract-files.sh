@@ -68,7 +68,7 @@ while [ "${#}" -gt 0 ]; do
 done
 
 if [ -z "$SRC" ]; then
-    SRC=/home/ema/velvet4g/system/
+    SRC=/home/emanuel/velvet/system/
 fi
 
 # Initialize the helper

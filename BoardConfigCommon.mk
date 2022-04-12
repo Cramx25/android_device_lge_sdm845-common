@@ -19,20 +19,19 @@ COMMON_PATH := device/lge/sdm845-common
 # inherit from common lge
 -include device/lge/common/BoardConfigCommon.mk
 
-# Platform
+# Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-2a
 TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
-TARGET_CPU_VARIANT := kryo385
+TARGET_CPU_VARIANT := kryo785
 
+ifeq (,$(filter %_64,$(TARGET_PRODUCT)))
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-a
+TARGET_2ND_ARCH_VARIANT := armv8-2a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := generic
-TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a75
+TARGET_2ND_CPU_VARIANT := kryo385
+endif
 
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := sdm845
@@ -68,7 +67,6 @@ TARGET_USES_QTI_CAMERA_DEVICE := true
 USE_CAMERA_STUB := true
 
 # Display
-OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 TARGET_USES_GRALLOC1 := true
 TARGET_USES_HWC2 := true
 TARGET_USES_ION := true
@@ -76,6 +74,7 @@ TARGET_USES_QCOM_DISPLAY_BSP := true
 TARGET_USES_COLOR_METADATA := true
 TARGET_USE_COLOR_MANAGEMENT := true
 TARGET_USES_DRM_PP := true
+TARGET_USES_VULKAN := true
 
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true
@@ -172,8 +171,10 @@ TARGET_RIL_VARIANT := caf
 
 # Sepolicy
 include device/qcom/sepolicy_vndr/SEPolicy.mk
-#BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(COMMON_PATH)/sepolicy/private
-#BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
+#SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
+#SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/public
+BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
+
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += $(VENDOR_PATH)

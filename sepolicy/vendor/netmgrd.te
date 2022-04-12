@@ -1,2 +1,0 @@
-#============= netmgrd ==============
-get_prop(netmgrd, exported3_radio_prop)

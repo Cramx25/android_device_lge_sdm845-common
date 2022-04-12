@@ -1,6 +1,0 @@
-#============= vendor_init ==============
-allow vendor_init block_device:blk_file { open read };
-allow vendor_init system_data_file:dir { create ioctl open read setattr };
-allow vendor_init tombstone_data_file:dir { getattr ioctl open read };
-get_prop(vendor_init, default_prop)
-get_prop(vendor_init, persist_debug_prop)

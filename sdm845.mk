@@ -39,12 +39,6 @@ include build/make/target/product/iorap_large_memory_config.mk
 PRODUCT_PACKAGES += \
     iorap-app-startup-runner
 
-# Dex
-PRODUCT_DEXPREOPT_SPEED_APPS += \
-    Launcher3QuickStep \
-    Settings \
-    SystemUI
-
 # Properties
 TARGET_ODM_PROP += $(COMMON_PATH)/odm.prop
 TARGET_SYSTEM_PROP += $(COMMON_PATH)/system.prop
@@ -211,8 +205,30 @@ PRODUCT_PACKAGES += \
     android.hardware.drm@1.4.vendor \
     android.hardware.drm@1.4-service.clearkey
 
-# Dex
+# Optimize everything for preopt
 PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := everything
+
+# Don't preopt prebuilts
+DONT_DEXPREOPT_PREBUILTS := true
+
+# Package Manager
+PRODUCT_PROPERTY_OVERRIDES += \
+    pm.dexopt.boot=verify \
+    pm.dexopt.first-boot=quicken \
+    pm.dexopt.install=speed-profile \
+    pm.dexopt.bg-dexopt=everything
+
+# Dex
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.boot-dex2oat-cpu-set=1,2,3,4,5,6,7 \
+    dalvik.vm.boot-dex2oat-threads=7 \
+    dalvik.vm.image-dex2oat-cpu-set=0,1,2,3,4,5,6,7 \
+    dalvik.vm.image-dex2oat-threads=8
+
+PRODUCT_DEXPREOPT_SPEED_APPS += \
+    Launcher3QuickStep \
+    Settings \
+    SystemUI
 
 # DAC
 PRODUCT_PACKAGES += \
@@ -228,7 +244,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.2-impl \
     android.hardware.graphics.composer@2.2-service \
     android.hardware.graphics.mapper@2.0-impl-qti-display \
-    vendor.qti.hardware.display.allocator@1.0-service \
+    vendor.qti.hardware.display.allocator-service \
     android.hardware.memtrack@1.0-impl \
     android.hardware.memtrack@1.0-service \
     gralloc.sdm845 \
@@ -255,14 +271,14 @@ PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service.lge_sdm845
 
 # FM packages
-#PRODUCT_PACKAGES += \
-#	libqcomfm_jni \
-#	android.hardware.broadcastradio@1.0-impl \
-#	FM2 \
-#	qcom.fmradio \
-#	qcom.fmradio.xml
+PRODUCT_PACKAGES += \
+	libqcomfm_jni \
+	android.hardware.broadcastradio@1.0-impl \
+	FM2 \
+	qcom.fmradio \
+	qcom.fmradio.xml
 
-#PRODUCT_BOOT_JARS += qcom.fmradio
+PRODUCT_BOOT_JARS += qcom.fmradio
 
 # Freeform Multiwindow
 PRODUCT_COPY_FILES += \
@@ -410,6 +426,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml \
+    frameworks/native/data/etc/android.software.opengles.deqp.level-2021-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.opengles.deqp.level.xml \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.proximity.xml \
@@ -422,7 +439,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute.xml \
     frameworks/native/data/etc/android.hardware.vulkan.level-1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level.xml \
-    frameworks/native/data/etc/android.software.vulkan.deqp.level-2020-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level.xml \
+    frameworks/native/data/etc/android.software.vulkan.deqp.level-2021-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level.xml \
     frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml \
@@ -453,7 +470,8 @@ PRODUCT_PACKAGES += \
     android.hardware.power.stats@1.0-service.lge
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
+    $(LOCAL_PATH)/configs/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json \
+    $(LOCAL_PATH)/configs/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
 
 # QMI
 PRODUCT_PACKAGES += \
@@ -481,7 +499,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
 
-# RIL
+# Qtimapper Shim
+PRODUCT_PACKAGES += \
+    vendor.qti.hardware.display.mappershim \
+    vendor.qti.hardware.display.mapperextensionsshim \
+    android.hardware.graphics.mappershim
+
+# Radio
 PRODUCT_PACKAGES += \
     android.hardware.radio@1.5 \
     android.hardware.radio@1.5.vendor \
