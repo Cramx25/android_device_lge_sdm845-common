@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2019 The LineageOS Project
+<!--
+     Copyright (C) 2021-2022 The LineageOS Project
 
-     Licensed under the Apache License, Version 2.0 (the "License");
+     Licensed under the Apache License, Version 2.0 (the "License"
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
 
@@ -13,8 +14,12 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+<resources>
+    <!-- Sensor types -->
+    <string name="pickup_sensor_type">lge.sensor.lgpick</string>
+    <string name="pocket_sensor_type">android.sensor.proximity</string>
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="#ff80868B" android:state_activated="false" />
-    <item android:color="?android:attr/colorAccent" android:state_activated="true" />
-</selector>
+    <!-- Sensor trigger values -->
+    <item name="pickup_sensor_value" format="float" type="dimen">1.0</item>
+    <item name="pocket_sensor_value" format="float" type="dimen">0.0</item>
+</resources>

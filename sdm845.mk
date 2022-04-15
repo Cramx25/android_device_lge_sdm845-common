@@ -51,6 +51,10 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := 560dpi
 PRODUCT_AAPT_PREBUILT_DPI := xxxhdpi xxhdpi xhdpi hdpi
 
+# Atrace
+PRODUCT_PACKAGES += \
+    android.hardware.atrace@1.0-service.pixel
+
 # Apex
 OVERRIDE_PRODUCT_COMPRESSED_APEX := false
 
@@ -199,6 +203,10 @@ PRODUCT_PACKAGES += \
     android.hardware.contexthub@1.0-impl.generic \
     android.hardware.contexthub@1.0-service
 
+# Dumpstate
+PRODUCT_PACKAGES += \
+    android.hardware.dumpstate@1.1-service.lge
+
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm@1.4 \
@@ -265,6 +273,12 @@ PRODUCT_PACKAGES += \
 # Configstore
 PRODUCT_PACKAGES += \
     disable_configstore
+
+# F2FS
+PRODUCT_PACKAGES += \
+    sg_write_buffer \
+    f2fs_io \
+    check_f2fs
 
 # Fingerprint
 PRODUCT_PACKAGES += \
@@ -560,12 +574,12 @@ PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.lge_sdm845
 
 # LiveDisplay
-#PRODUCT_PACKAGES += \
-#    vendor.lineage.livedisplay@2.0-service.lge_sdm845
+PRODUCT_PACKAGES += \
+    vendor.lineage.livedisplay@2.0-service.lge_sdm845
 
 # Touch
-#PRODUCT_PACKAGES += \
-#    vendor.lineage.touch@1.0-service.lge_sdm845
+PRODUCT_PACKAGES += \
+    vendor.lineage.touch@1.0-service.lge_sdm845
 
 # USB
 PRODUCT_PACKAGES += \

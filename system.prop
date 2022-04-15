@@ -84,6 +84,7 @@ debug.sf.recomputecrop=0
 debug.sf.gpu_comp_tiling=1
 debug.sf.disable_hwc=0
 ro.surface_flinger.use_color_management=true
+debug.renderengine.backend=skiaglthreaded
 
 # Voice assistant
 ro.opa.eligible_device=true
