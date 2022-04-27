@@ -423,3 +423,10 @@ service vendor.contexthub-hal-1-0 /vendor/bin/hw/android.hardware.contexthub@1.0
     user system
     group system
     disabled
+
+on property:sys.boot_completed=1
+    write /dev/blkio/blkio.weight 1000
+    write /dev/blkio/background/blkio.weight 200
+    write /dev/blkio/blkio.group_idle 2000
+    write /dev/blkio/background/blkio.group_idle 0
+
